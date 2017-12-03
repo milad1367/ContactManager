@@ -13,20 +13,28 @@ import {
   import { SafeAreaView, StackNavigator } from 'react-navigation';
   import AddNewContact from './components/AddNewContact';
   import TodoList from './components/TodoList';
-
+  import * as firebase from 'firebase';
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyDYvQaRPag_1pvnBLkxWRQEAOjujYONYu8",
+  authDomain: "contactmanager-a73ef.firebaseapp.com",
+  databaseURL: "https://contactmanager-a73ef.firebaseio.com",
+  storageBucket: "",
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);  
 const MainScreen = ({ navigation }) => (
     <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior="automatic">
       <TodoList />
       <View style={{}}>
     <Button
-    title="ADD"
+    title="Add New Contact"
     color="#841584"
     accessibilityLabel="Learn more about this purple button"
     onPress={()=>
       navigation.navigate('AddNewContact',{name: 'Brent'})
     }
   />
-</View>
+  </View>
     </ScrollView>    
 );
 

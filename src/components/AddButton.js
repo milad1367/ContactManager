@@ -11,7 +11,7 @@ import {
   const AddButton = ({navigation}) => (
     <View style={{}}>
     <Button
-    title="ADD"
+    title="add new contact"
     color="#841584"
     accessibilityLabel="Learn more about this purple button"
     onPress={()=>

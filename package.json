@@ -8,10 +8,14 @@
   },
   "dependencies": {
     "apsl-react-native-button": "^3.1.0",
+    "firebase": "^4.7.0",
+    "prop-types": "^15.6.0",
     "react": "16.0.0",
     "react-native": "0.50.4",
     "react-native-button": "^2.1.0",
-    "react-navigation": "^1.0.0-beta.21"
+    "react-native-clean-form": "^0.4.2",
+    "react-navigation": "^1.0.0-beta.21",
+    "styled-components": "^2.2.4"
   },
   "devDependencies": {
     "babel-jest": "21.2.0",
