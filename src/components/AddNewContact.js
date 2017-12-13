@@ -11,47 +11,41 @@ import {
   Input,
   Label,
   Switch,
-  
+
 } from 'react-native-clean-form'
-import * as firebase from 'firebase';
- // Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyDYvQaRPag_1pvnBLkxWRQEAOjujYONYu8",
-  authDomain: "contactmanager-a73ef.firebaseapp.com",
-  databaseURL: "https://contactmanager-a73ef.firebaseio.com",
-  storageBucket: "",
-};
-const firebaseApp = firebase.initializeApp(firebaseConfig);  
+
+import FirebaseApp from './FirebaseApp';
 
 export default class AddNewContact extends Component {
-  
+
   constructor(props) {
     super(props);
-    
+
     this.state = {
       name:"",
       email:"",
       brief:""
     }
     this.itemsRef = this.GetRef().child('users');
-    
+
   }
 
 
   GetRef() {
-    return firebaseApp.database().ref();
+    return FirebaseApp.database().ref();
   }
    writeUserData() {
-    firebase.database().ref('users').push({
+    FirebaseApp.database().ref('users').push({
       username: this.state.name,
       email: this.state.email,
       brief : this.state.brief
     }).then(()=>{
-     // goBack();
+      this.props.navigation.goBack(null);
+
     })
 
     };
-  
+
   SaveUser () {
     this.itemsRef.push({
       name: "user.name",
@@ -59,8 +53,9 @@ export default class AddNewContact extends Component {
       brief: "user.brief"
     })
   }
-
+ 
   render() {
+    const navigation = this.props.navigation;
 
     console.log(this.state.name);
     return (
@@ -77,7 +72,7 @@ export default class AddNewContact extends Component {
         </FormGroup>
         <FormGroup>
           <Label>brief</Label>
-          <Input  placeholder="writing about you" onChangeText={(text)=> this.setState({})}  />
+          <Input  placeholder="writing about you" onChangeText={(text)=> this.setState({brief:text})}  />
         </FormGroup>
       </Fieldset>
     </FieldsContainer>

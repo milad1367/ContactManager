@@ -13,9 +13,47 @@ import {
   import { SafeAreaView, StackNavigator } from 'react-navigation';
   import AddNewContact from './components/AddNewContact';
   import TodoList from './components/TodoList';
+  import FirebaseApp from './components/FirebaseApp';
+
+class MainScreen extends  Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      users:""
+    };
+  }
+  componentDidMount() {
+   FirebaseApp.database().ref('users').on("value",(snap)=>{
+     var items = [];
+      snap.forEach((child)=>{
+        items.push({
+          name:child.val().username
+        })
+      })
+      this.setState({
+        users:items,
+        function(){
+          console.log("hiiiiiiiiiii");
+          users2 = this.state.users.map((item)=>{
+           <Text> {item} </Text>
+
+         })
+        }
+      });
+   })
 
 
-const MainScreen = ({ navigation }) => (
+   console.log("state"+this.state.users);
+  }
+
+
+  render() {
+    const navigation = this.props.navigation;
+    let stateToString = this.state.users.toString();
+    let users2;
+
+
+    return(
     <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior="automatic">
       <TodoList />
       <View>
@@ -27,10 +65,12 @@ const MainScreen = ({ navigation }) => (
       navigation.navigate('AddNewContact',{name: 'Brent'})
     }
   />
+  <Text> {users2} </Text>
   </View>
-    </ScrollView>    
-);
-
+    </ScrollView>
+  )
+}
+}
 
 const AppNavigator = StackNavigator(
     {
@@ -44,7 +84,7 @@ const AppNavigator = StackNavigator(
     {
       initialRouteName: 'Index',
       headerMode: 'none',
-  
+
       /*
      * Use modal on iOS because the card mode comes from the right,
      * which conflicts with the drawer example gesture
