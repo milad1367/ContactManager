@@ -6,6 +6,6 @@ const firebaseConfig = {
   databaseURL: "https://contactmanager-a73ef.firebaseio.com",
   storageBucket: "",
 };
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+const myFirebaseApp = firebase.initializeApp(firebaseConfig);
 
-export default firebaseApp
+export default myFirebaseApp

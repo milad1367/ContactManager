@@ -1,20 +1,10 @@
 
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import {
-  ActionsContainer,
-  Button,
-  FieldsContainer,
-  Fieldset,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Switch,
+import { Text,TextInput, View , Button } from 'react-native';
 
-} from 'react-native-clean-form'
+import * as firebase from 'firebase';
 
-import FirebaseApp from './FirebaseApp';
+import myFirebaseApp from './myFirebaseApp';
 
 export default class AddNewContact extends Component {
 
@@ -32,20 +22,19 @@ export default class AddNewContact extends Component {
 
 
   GetRef() {
-    return FirebaseApp.database().ref();
+    return myFirebaseApp.database().ref();
   }
-   writeUserData() {
-    FirebaseApp.database().ref('users').push({
+   writeUserData(){
+    this.itemsRef.push({
       username: this.state.name,
       email: this.state.email,
       brief : this.state.brief
     }).then(()=>{
-      this.props.navigation.goBack(null);
+      this.props.navigation.goBack(null)
+    });
 
-    })
 
-    };
-
+  }
   SaveUser () {
     this.itemsRef.push({
       name: "user.name",
@@ -53,33 +42,34 @@ export default class AddNewContact extends Component {
       brief: "user.brief"
     })
   }
- 
+
   render() {
     const navigation = this.props.navigation;
-
-    console.log(this.state.name);
+  //  console.log(this.state);
     return (
-  <Form>
-    <FieldsContainer>
-      <Fieldset label="Contact details">
-        <FormGroup>
-          <Label>name</Label>
-          <Input placeholder="you full name" onChangeText={(text) => this.setState({name:text})} />
-        </FormGroup>
-        <FormGroup>
-          <Label>Email</Label>
-          <Input  placeholder="your email" onChangeText={(text) => this.setState({email:text})} />
-        </FormGroup>
-        <FormGroup>
-          <Label>brief</Label>
-          <Input  placeholder="writing about you" onChangeText={(text)=> this.setState({brief:text})}  />
-        </FormGroup>
-      </Fieldset>
-    </FieldsContainer>
-    <ActionsContainer>
-      <Button  iconPlacement="right" onPress={this.writeUserData.bind(this)}>add</Button>
-    </ActionsContainer>
-  </Form>
+      <View>
+      <TextInput
+  style={{height: 40, borderWidth: 1}}
+  onChangeText={(text) => this.setState({name:text})}
+  value={this.state.name}
+/>
+<TextInput
+style={{height: 40, borderWidth: 1}}
+onChangeText={(text) => this.setState({email:text})}
+value={this.state.email}
+/>
+<TextInput
+style={{height: 40, borderWidth: 1}}
+onChangeText={(text) => this.setState({brief:text})}
+value={this.state.brief}
+/>
+      <Button
+        onPress={()=>this.writeUserData()}
+        title="add"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
+      />
+  </View>
     )
   }
 }
