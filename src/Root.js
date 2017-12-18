@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Text,
     View,
-    Button
+    Button,
+    FlatList
   } from 'react-native';
 
   import { SafeAreaView, StackNavigator } from 'react-navigation';
@@ -22,86 +23,44 @@ class MainScreen extends  Component {
       users:""
     };
     this.itemsRef = this.getRef().child('users');
-
   }
   getRef() {
     return myFirebaseApp.database().ref();
   }
 
   componentDidMount() {
-     myFirebaseApp.database().ref('users').once('value').then((snapshot)=> {
-       this.setState({users : snapshot.val()}); // && snapshot.val().username) || 'Anonymous';
-       var items = [];
-       console.log(snapshot.val());
-       var test = snapshot;
-        snapshot.forEach((item)=>{
-         items.push ({
-
-           username:item.val().username
-         })
-       })
-
-       this.setState({users:snapshot.val()});
-
-    //   console.log(this.items);
-
-    });
-    /*
-   this.itemsRef.on("value",(snap)=>{
+     this.itemsRef.on('value',(snap)=>{
+       // get children as an array
      var items = [];
-     console.log(snap);
-      snap.forEach((child)=>{
-        //console.log(child);
+     snap.forEach((child) => {
         items.push({
-          name:child.val().username
-        })
-      })
-      this.setState({
-        users:items,
-        function(){
-          console.log(this.state.users);
-
-          users2 = this.state.users.map((item)=>{
-           <Text> {item} </Text>
-
-         })
-        }
+          username: child.val().username,
+         _key: child.key
       });
-   })
-   */
+     });
+       this.setState({users:items});
+     })
   }
 
 
   render() {
     const navigation = this.props.navigation;
-    //let stateToString = this.state.users.toString();
-    const items = this.state.users;
-    console.log("items" + items);
-    if (items.legth>1){
-    const items2 =  items.forEach((item)=>{
-        return (
-          <ul>
-            item
-          </ul>
-        )
-      })
-      console.log("items2" + items2);
-    }
-
     return(
     <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior="automatic">
-      <TodoList />
       <View>
-    <Button
-    title="Add New Contact"
-    color="#841584"
-    accessibilityLabel="Learn more about this purple button"
-    onPress={()=>
-      navigation.navigate('AddNewContact',{name: 'AddNewContact'})
-    }
-  />
-   {this.item2}
-  </View>
+        <Button
+          title="Add New Contact"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+          onPress={()=>
+          navigation.navigate('AddNewContact',{name: 'AddNewContact'})
+          }
+       />
+        <FlatList
+          data= {this.state.users}
+          renderItem={({item}) => <Text>{item.username}</Text>}
+        />
+      </View>
     </ScrollView>
   )
 }
