@@ -63,8 +63,6 @@ export default class AddNewContact extends Component {
   }
 }
 
-
-
 /*
 render() {
   const navigation = this.props.navigation;
