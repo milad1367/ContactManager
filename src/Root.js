@@ -48,6 +48,10 @@ class MainScreen extends  Component {
     return(
     <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior="automatic">
       <View>
+        <FlatList
+          data= {this.state.users}
+          renderItem={({item}) => <Text>{item.username}</Text>}
+        />
         <Button
           title="Add New Contact"
           color="#841584"
@@ -56,10 +60,6 @@ class MainScreen extends  Component {
           navigation.navigate('AddNewContact',{name: 'AddNewContact'})
           }
        />
-        <FlatList
-          data= {this.state.users}
-          renderItem={({item}) => <Text>{item.username}</Text>}
-        />
       </View>
     </ScrollView>
   )
