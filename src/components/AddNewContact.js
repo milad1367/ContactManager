@@ -32,7 +32,7 @@ export default class AddNewContact extends Component {
       brief: "user.brief"
     })
   }
-//
+
   render() {
     const navigation = this.props.navigation;
     return (
