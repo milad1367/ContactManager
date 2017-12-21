@@ -14,7 +14,7 @@ import {
   import AddNewContact from './components/AddNewContact';
   import TodoList from './components/TodoList';
   import myFirebaseApp from './components/myFirebaseApp';
-
+  import User from './components/User';
 class MainScreen extends  Component {
   constructor(props){
     super(props);
@@ -42,7 +42,6 @@ class MainScreen extends  Component {
      });
        const ItemsReverse = items.reverse();
        this.setState({users:ItemsReverse});
-       console.log(items);
      })
   }
 
@@ -62,13 +61,14 @@ class MainScreen extends  Component {
      />
         <FlatList
           data= {this.state.users}
-          renderItem={({item}) =>(<View>
-                                  <Text>  name: {item.username}</Text>
-                                  <Text> email:{item.email}</Text>
-                                  <Text> brief:{item.brief}</Text>
-                                   </View>
-                                     )}
-                                  />
+          renderItem={({item}) => (
+            <User
+               name={item.username}
+               email={item.email}
+               brief={item.brief}
+             />
+           )}
+        />
       </View>
     </ScrollView>
   )

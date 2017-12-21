@@ -12,7 +12,7 @@ import {
           <Text>name : {this.props.name}</Text>
           <Text>email : {this.props.email}</Text>
           <Text>brief : {this.props.brief}</Text>
-        <View>
+        </View>
       )
     }
   }
