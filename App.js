@@ -16,9 +16,9 @@ import Root from './src/Root';
 export default class App extends Component<{}> {
   render() {
     return (
-      
+
          <Root />
-     
+
     );
   }
 }
@@ -27,6 +27,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
 
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
   },
 });
