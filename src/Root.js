@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import {
     Platform,
     ScrollView,
@@ -30,15 +29,20 @@ class MainScreen extends  Component {
 
   componentDidMount() {
      this.itemsRef.on('value',(snap)=>{
+       console.log("snap"+snap);
        // get children as an array
      var items = [];
      snap.forEach((child) => {
         items.push({
           username: child.val().username,
+          email: child.val().email,
+          brief: child.val().brief,
          _key: child.key
       });
      });
-       this.setState({users:items});
+       const ItemsReverse = items.reverse();
+       this.setState({users:ItemsReverse});
+       console.log(items);
      })
   }
 
@@ -48,18 +52,23 @@ class MainScreen extends  Component {
     return(
     <ScrollView style={{ flex: 1 }} contentInsetAdjustmentBehavior="automatic">
       <View>
+      <Button
+        title="Add New Contact"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
+        onPress={()=>
+        navigation.navigate('AddNewContact',{name: 'AddNewContact'})
+        }
+     />
         <FlatList
           data= {this.state.users}
-          renderItem={({item}) => <Text>{item.username}</Text>}
-        />
-        <Button
-          title="Add New Contact"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-          onPress={()=>
-          navigation.navigate('AddNewContact',{name: 'AddNewContact'})
-          }
-       />
+          renderItem={({item}) =>(<View>
+                                  <Text>  name: {item.username}</Text>
+                                  <Text> email:{item.email}</Text>
+                                  <Text> brief:{item.brief}</Text>
+                                   </View>
+                                     )}
+                                  />
       </View>
     </ScrollView>
   )
