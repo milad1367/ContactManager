@@ -28,8 +28,5 @@ import {
     fontSize: 19,
     fontWeight: 'bold',
     marginLeft:20,
-  },
-  activeTitle: {
-    color: 'red',
-  },
+  }
 });
